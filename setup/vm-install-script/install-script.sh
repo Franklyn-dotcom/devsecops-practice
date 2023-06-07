@@ -70,15 +70,15 @@ mvn -v
 
 
 echo ".........----------------#################._.-.-JENKINS-.-._.#################----------------........."
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt update
-sudo apt install -y jenkins
-systemctl daemon-reload
-systemctl enable jenkins
-sudo systemctl start jenkins
+#wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+#sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+#sudo apt update
+#sudo apt install -y jenkins
+#systemctl daemon-reload
+#systemctl enable jenkins
+#sudo systemctl start jenkins
 #sudo systemctl status jenkins
-sudo usermod -a -G docker jenkins
-echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+#sudo usermod -a -G docker jenkins
+#echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 echo ".........----------------#################._.-.-COMPLETED-.-._.#################----------------........."
