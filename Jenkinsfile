@@ -32,16 +32,5 @@ pipeline {
  	  }
 
 	}
-
-	post {
-	   always {
-	      echo "Checking application integration test...."
-	   }
-	   success {
-	      echo "Succesfully built"
-	      echo "Logging out of the container registry!"
-	      sh 'docker logout'
-	   }
-        }
     }
 }
