@@ -24,9 +24,9 @@ pipeline {
        stage('build image') {
 	  steps {
 	    withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-	             sh 'docker build -t franklyn27181/my-devops-projects:devsecops .'
+	             sh 'sudo docker build -t franklyn27181/my-devops-projects:devsecops .'
 		     sh "echo $PASS | docker login -u $USER --password-stdin"
-		     sh 'docker push franklyn27181/my-devops-projects:devsecops'  
+		     sh 'sudo docker push franklyn27181/my-devops-projects:devsecops'  
 		}
 	   }
 
