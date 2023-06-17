@@ -24,6 +24,7 @@ pipeline {
        stage('build image') {
 	  steps {
 	    withDockerRegistry([credentialsId: "dockerhub-credential", url: ""]) {
+		     sh 'printenv'
 	             sh 'docker build -t franklyn27181/my-devops-projects:devsecops .'
 		     sh ' docker push franklyn27181/my-devops-projects:devsecops'  
 	        }
