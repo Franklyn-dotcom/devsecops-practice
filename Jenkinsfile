@@ -23,20 +23,25 @@ pipeline {
 	
        stage('build image') {
 	  steps {
-	    withDockerRegistry([credentialsId: "dockerhub-credential", url: ""]) {
-		     sh 'printenv'
-	             sh 'docker build -t franklyn27181/my-devops-projects:devsecops .'
-		     sh ' docker push franklyn27181/my-devops-projects:devsecops'  
-	        }
-	   }
+	    sh 'Building images'
+	    withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', passwordVariable: 'PASS', usernameVariable: 'USER')]){
+		    sh 'docker build -t franklyn27181/my-devops-projects:2.0 .'
+		    sh "echo $PASS | docker login -u $USER --password-stdin"
+		    sh 'docker push franklyn27181/my-devops-projects:2.0'
+		}  
+ 	  }
 
-	   post {
-	     success {
-		echo "Succesfully built"
-	  	echo "Logging out of the container registry!"
-	  	sh 'docker logout'
-	     }
-	   }
 	}
+
+	post {
+	   always {
+	      echo "Checking application integration test...."
+	   }
+	   success {
+	      echo "Succesfully built"
+	      echo "Logging out of the container registry!"
+	      sh 'docker logout'
+	   }
+        }
     }
 }
