@@ -33,7 +33,7 @@ pipeline {
 	   post {
 	     success {
 		echo "Succesfully built"
-	  	echo "Logging out of the container registry"
+	  	echo "Logging out of the container registry!"
 	  	sh 'docker logout'
 	     }
 	   }
