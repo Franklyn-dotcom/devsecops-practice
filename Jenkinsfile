@@ -32,5 +32,15 @@ pipeline {
  	  }
 
 	}
+
+      stage('Kubernetes manifest') {
+	 steps {
+	    echo "Replace the kubernetes manifest image with the docker image and applying the file"
+	    withKubeConfig([credentialsId: 'kubeconfig']) {
+		sh "sed -i 's#replace#franklyn27181/my-devops-projects:2.0#g' k8s_deployment_service.yaml"
+		sh "kubectl apply -f k8s_deployment_Service.yaml"
+	    }
+	 }	
+       }
     }
 }
