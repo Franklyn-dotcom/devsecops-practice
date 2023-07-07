@@ -20,6 +20,20 @@ pipeline {
 	    }
 	  }	
        }
+
+
+      stage('Pit mutatiion test '){
+	  steps {
+	     echo "checking pit test"
+	     sh "mvn org.pitest:pitest-maven:mutationCoverage"     
+	  }
+	  post {
+	    always {
+		pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+	    }
+	  }
+
+       }
 	
        stage('build image') {
 	  steps {
@@ -42,5 +56,7 @@ pipeline {
 	    }
 	 }	
        }
+
+      
     }
 }
