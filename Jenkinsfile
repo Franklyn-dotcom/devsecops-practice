@@ -31,6 +31,9 @@ pipeline {
 	    always {
 		pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
 	    }
+	    success {
+		echo "Successfull"
+	    }
 	  }
 
        }
