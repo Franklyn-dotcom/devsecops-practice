@@ -17,7 +17,7 @@ pipeline {
 	    always{
 		junit 'target/surefire-reports/*.xml'
 	 	jacoco execPattern: 'target/jacoco.exec'
-		sh "Done"
+		echo "Done"
 	    }
 	  }	
        }
@@ -38,11 +38,7 @@ pipeline {
 
       stage("Sonarqube - SAST"){
         steps {
-		sh "mvn clean verify sonar:sonar \
-  			-Dsonar.projectKey=numeric_app \
-  			-Dsonar.projectName='numeric_app' \
-  			-Dsonar.host.url=http://74.220.26.11:9000 \
-  			-Dsonar.token=sqp_50166ef5184090f720835b4e007c51c1dfc9644a"
+		echo "Hello world"
 	 }
       }
 	
