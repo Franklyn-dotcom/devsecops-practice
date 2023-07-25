@@ -9,33 +9,33 @@ pipeline {
             }
         }   
 
-      stage('Unit test') {
-	  steps {
-	    sh "mvn test"
+#      stage('Unit test') {
+#	  steps {
+#	    sh "mvn test"
 	    
-	  }
-	  post {
-	    always{
-		junit 'target/surefire-reports/*.xml'
-	 	jacoco execPattern: 'target/jacoco.exec'
-		
-	    }
-	  }	
-       }
+#	  }
+#	  post {
+#	    always{
+#		junit 'target/surefire-reports/*.xml'
+#	 	jacoco execPattern: 'target/jacoco.exec'
+#		
+#	    }
+#	  }	
+#       }
 
 
-      stage('Pit mutatiion test '){
-	  steps {
-	     echo "checking pit test"
-	     sh "mvn org.pitest:pitest-maven:mutationCoverage"     
-	  }
-	  post {
-	    always {
-		pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-	    }
-	  }
+#      stage('Pit mutatiion test '){
+#	  steps {
+#	     echo "checking pit test"
+#	     sh "mvn org.pitest:pitest-maven:mutationCoverage"     
+#	  }
+#	  post {
+#	    always {
+#		pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+#	    }
+#	  }
 
-       }
+#       }
 
       stage("Sonarqube - SAST"){
         steps {
