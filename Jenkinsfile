@@ -12,7 +12,7 @@ pipeline {
       stage('Unit test') {
 	  steps {
 	    sh "mvn test"
-	    echo "Still testing ..."
+	    
 	  }
 	  post {
 	    always{
