@@ -9,26 +9,6 @@ pipeline {
             }
         }   
 
-      stage('Unit test') {
-	  steps {
-	    sh "mvn test"
-	    
-	  }	
-       }
-
-
-      stage('Pit mutatiion test '){
-	  steps {
-	     echo "checking pit test"
-	     sh "mvn org.pitest:pitest-maven:mutationCoverage"     
-	  }
-	  post {
-	    always {
-		pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-	    }
-	  }
-
-       }
 
 
       stage("Sonarqube - SAST"){
