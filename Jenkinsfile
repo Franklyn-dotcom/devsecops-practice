@@ -18,7 +18,7 @@ pipeline {
 			-Dsonar.projectName='numeric_app' \
 			-Dsonar.host.url=http://74.220.26.11:9000 \
 			-Dsonar.token=sqp_50166ef5184090f720835b4e007c51c1dfc9644a"
-		echo "again"
+		echo "again done"
 	 }
       }
 	
