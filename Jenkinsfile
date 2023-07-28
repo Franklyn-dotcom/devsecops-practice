@@ -2,26 +2,26 @@ pipeline {
   agent any
 
   stages {
-      stage('Build Artifact') {
-            steps {
-              sh "mvn clean package -DskipTests=true"
-              archive 'target/*.jar' 
-            }
-        }   
+//      stage('Build Artifact') {
+//            steps {
+//              sh "mvn clean package -DskipTests=true"
+//              archive 'target/*.jar' 
+//            }
+//        }   
 
 
 
-      stage("Sonarqube - SAST"){
-        steps {
-		echo "Loading analysis"
-		sh "mvn clean verify sonar:sonar \
-			  -Dsonar.projectKey=numeric_app \
-			  -Dsonar.projectName='numeric_app' \
- 			  -Dsonar.host.url=http://74.220.26.11:9000 \
-   			  -Dsonar.token=sqp_da00b380380af1120b7ddb908d0199748abef440"
+//      stage("Sonarqube - SAST"){
+//        steps {
+//		echo "Loading analysis"
+//		sh "mvn clean verify sonar:sonar \
+//			  -Dsonar.projectKey=numeric_app \
+//			  -Dsonar.projectName='numeric_app' \
+// 			  -Dsonar.host.url=http://74.220.26.11:9000 \
+//   			  -Dsonar.token=sqp_da00b380380af1120b7ddb908d0199748abef440"
 		
-	 }
-      }
+//	 }
+//      }
 	
        stage('build image') {
 	  steps {
