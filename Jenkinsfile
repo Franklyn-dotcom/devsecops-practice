@@ -28,7 +28,7 @@ pipeline {
            parallel(
 		"Dependency Scan": {
 			sh "mvn dependency-check:check"
-			echo "hello"
+			
 		}	
 	)
        }
