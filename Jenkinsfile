@@ -67,8 +67,8 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', passwordVariable: 'PASS', usernameVariable: 'USER')]){
 		    sh 'sudo docker build -t franklyn27181/my-devops-projects:2.0 .'
-		    sh "echo $PASS | docker login -u $USER --password-stdin"
-		    sh 'docker push franklyn27181/my-devops-projects:2.0'
+		    sh "sudo echo $PASS | docker login -u $USER --password-stdin"
+		    sh 'sudo docker push franklyn27181/my-devops-projects:2.0'
 		}  
       }
     }
