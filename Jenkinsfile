@@ -66,8 +66,8 @@ pipeline {
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: 'dockerhub-credential', url: ""]){
-		    sh 'docker build -t franklyn27181/my-devops-projects:2.0 .'
-		    sh "echo $PASS | docker login -u $USER --password-stdin"
+		    sh 'sudo docker build -t franklyn27181/my-devops-projects:2.0 .'
+//		    sh "echo $PASS | docker login -u $USER --password-stdin"
 		    sh 'docker push franklyn27181/my-devops-projects:2.0'
 		}  
       }
