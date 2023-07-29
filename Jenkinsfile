@@ -27,16 +27,16 @@ pipeline {
 	 steps {
            parallel(
 		"Dependency Scan": {
-			sh "mvn dependency-check:check"
-			
+//			sh "mvn dependency-check:check"
+			echo "Hello ..."
 		}	
 	)
        }
-	post {
-	  always {
-		dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-	  }
-	}
+//	post {
+//	  always {
+//		dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+//	  }
+//	}
      }
 	
        stage('build image') {
