@@ -1,3 +1,2 @@
 # .dockerignore ..
-/var/lib/jenkins/workspace/devsecops-numeric-app/
-
+*
