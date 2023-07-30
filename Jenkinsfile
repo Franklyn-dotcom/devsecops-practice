@@ -69,8 +69,8 @@ pipeline {
         withDockerRegistry([credentialsId: 'dockerhub-credential', url: ""]){
 		    sh "printenv"
 //		    sh "echo $PASS | docker login -u $USER --password-stdin"
-		    sh "bash simple.sh"
-		    sh 'docker build -t franklyn27181/my-devops-projects:2.0 .'
+//		    sh "bash simple.sh"
+		    sh '/usr/bin/sudo docker build -t franklyn27181/my-devops-projects:2.0 .'
 		    sh 'docker push franklyn27181/my-devops-projects:2.0'
 		}  
       }
