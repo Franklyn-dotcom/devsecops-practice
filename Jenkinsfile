@@ -56,7 +56,7 @@ pipeline {
 			"Trivy Scan":{
 			    dir('dockerfiles/'){
 				sh "bash trivy-docker-image-scan.sh"
-				echo "Scanning complete..."
+				echo "Scanning ... Done!"
 			    }
 			}
 			// "OPA Conftest":{
