@@ -54,7 +54,7 @@ pipeline {
         		// sh "mvn dependency-check:check"
 			// },
 			"Trivy Scan":{
-			    dir('/devsecops-practice/dockerfiles'){
+			    dir('dockerfiles/'){
 				sh "bash trivy-docker-image-scan.sh"
 				echo "Scanning complete..."
 			    }
