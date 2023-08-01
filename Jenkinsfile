@@ -8,6 +8,7 @@ pipeline {
 //     imageName = "siddharth67/numeric-app:${GIT_COMMIT}"
 //     applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com"
 //     applicationURI="/increment/99"
+//       trivyDir = "/devsecops-numeric-app/dockerfiles"
 //   }
 
   stages {
@@ -53,8 +54,10 @@ pipeline {
         		// sh "mvn dependency-check:check"
 			// },
 			"Trivy Scan":{
+			    dir('/dockerfiles'){
 				sh "bash trivy-docker-image-scan.sh"
 				echo "Scanning complete..."
+			    }
 			}
 			// "OPA Conftest":{
 				// sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
