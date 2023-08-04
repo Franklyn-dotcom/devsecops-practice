@@ -13,24 +13,24 @@ pipeline {
 
   stages {
 
-//    stage('Build Artifact - Maven') {
-//      steps {
-//        sh "mvn clean package -DskipTests=true"
-//        archive 'target/*.jar'
-//      }
-//    }
+    stage('Build Artifact - Maven') {
+      steps {
+        sh "mvn clean package -DskipTests=true"
+        archive 'target/*.jar'
+      }
+    }
 
-//    stage('Unit Tests - JUnit and JaCoCo') {
-//      steps {
-//        sh "mvn test"
-//      }
-//    }
+    stage('Unit Tests - JUnit and JaCoCo') {
+      steps {
+        sh "mvn test"
+      }
+    }
 
-//    stage('Mutation Tests - PIT') {
-//      steps {
-//        sh "mvn org.pitest:pitest-maven:mutationCoverage"
-//      }
-//    }
+    stage('Mutation Tests - PIT') {
+      steps {
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+    }
 
  //    stage('SonarQube - SAST') {
  //      steps {
@@ -70,7 +70,7 @@ pipeline {
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: 'dockerhub-credential', url: ""]){
-//		    sh "printenv"
+		    sh "printenv"
 		    sh "echo $PASS | docker login -u $USER --password-stdin"
 //		    sh "bash simple.sh"
 		    sh "docker build -t franklyn27181/my-devops-projects:2.0 ."
