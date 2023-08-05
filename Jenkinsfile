@@ -88,9 +88,9 @@ pipeline {
  //          "Trivy Scan": {
  //            sh "bash trivy-k8s-scan.sh"
  //          }
- //        )
- //      }
- //    }
+         )
+       }
+     }
 
  //    stage('K8S Deployment - DEV') {
  //      steps {
