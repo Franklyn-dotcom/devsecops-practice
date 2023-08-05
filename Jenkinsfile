@@ -1,15 +1,15 @@
 pipeline {
   agent any
 
-//   environment {
-//     deploymentName = "devsecops"
-//     containerName = "devsecops-container"
-//     serviceName = "devsecops-svc"
-//     imageName = "siddharth67/numeric-app:${GIT_COMMIT}"
-//     applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com"
-//     applicationURI="/increment/99"
-//       trivyDir = "/devsecops-numeric-app/dockerfiles"
-//   }
+   environment {
+     deploymentName = "devsecops"
+     containerName = "devsecops-container"
+     serviceName = "devsecops-svc"
+     imageName = "franklyn27181/my-devops-project:2.0"
+     applicationURL="http://74.220.26.11:8080"
+     applicationURI="/increment/99"
+     trivyDir = "/devsecops-numeric-app/dockerfiles"
+   }
 
   stages {
 
