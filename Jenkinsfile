@@ -91,23 +91,7 @@ pipeline {
          )
        }
      }
-
- //    stage('K8S Deployment - DEV') {
- //      steps {
- //        parallel(
- //          "Deployment": {
- //            withKubeConfig([credentialsId: 'kubeconfig']) {
- //              sh "bash k8s-deployment.sh"
- //            }
- //          },
- //          "Rollout Status": {
- //            withKubeConfig([credentialsId: 'kubeconfig']) {
- //              sh "bash k8s-deployment-rollout-status.sh"
- //            }
- //          }
- //        )
- //      }
- //    }
+         
 
  //    stage('Integration Tests - DEV') {
  //      steps {
@@ -169,14 +153,15 @@ pipeline {
             echo "Replace the kubernetes manifest image with the docker image and applying the file"
             withKubeConfig([credentialsId: 'kubeconfig']) {
               sh "sed -i 's#replace#franklyn27181/my-devops-projects:2.0#g' k8s_deployment_service.yaml"
+	      sh "kubectl -n default set image deploy ${deploymentName} ${containerName}=${imageName} --record=true"
               sh "kubectl apply -f k8s_deployment_service.yaml"
             }
-          }
-        //   "Rollout Status": {
-        //     withKubeConfig([credentialsId: 'kubeconfig']) {
-        //       sh "bash k8s-PROD-deployment-rollout-status.sh"
-        //     }
-        //   }
+          },
+           "Rollout Status": {
+             withKubeConfig([credentialsId: 'kubeconfig']) {
+               sh "bash k8s-PROD-deployment-rollout-status.sh"
+             }
+           }
         )
       }
     }
