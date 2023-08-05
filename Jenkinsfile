@@ -70,19 +70,18 @@ pipeline {
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: 'dockerhub-credential', url: ""]){
-		    sh "printenv"
 		    sh "docker build -t franklyn27181/my-devops-projects:2.0 ."
 		    sh 'docker push franklyn27181/my-devops-projects:2.0'
 		}  
       }
     }
 
- //    stage('Vulnerability Scan - Kubernetes') {
- //      steps {
- //        parallel(
- //          "OPA Scan": {
- //            sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
- //          },
+     stage('Vulnerability Scan - Kubernetes') {
+       steps {
+         parallel(
+           "OPA Scan": {
+             sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security-test.rego k8s_deployment_service.yaml'
+           }
  //          "Kubesec Scan": {
  //            sh "bash kubesec-scan.sh"
  //          },
