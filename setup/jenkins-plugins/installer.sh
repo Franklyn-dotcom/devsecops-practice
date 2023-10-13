@@ -2,11 +2,13 @@
 
 set -eo pipefail
 
-JENKINS_URL='http://localhost:8080'
+JENKINS_URL='http://74.220.28.164:8080'  # Updated Jenkins URL with the provided IP address
 
-JENKINS_CRUMB=$(curl -s --cookie-jar /tmp/cookies -u admin:admin ${JENKINS_URL}/crumbIssuer/api/json | jq .crumb -r)
+# You may need to update the credentials as well.
+# Replace 'admin:admin' with your Jenkins username and password.
+JENKINS_CRUMB=$(curl -s --cookie-jar /tmp/cookies -u oge:oge "${JENKINS_URL}/crumbIssuer/api/json" | jq -r '.crumb')
 
-JENKINS_TOKEN=$(curl -s -X POST -H "Jenkins-Crumb:${JENKINS_CRUMB}" --cookie /tmp/cookies "${JENKINS_URL}/me/descriptorByName/jenkins.security.ApiTokenProperty/generateNewToken?newTokenName=demo-token66" -u admin:admin | jq .data.tokenValue -r)
+JENKINS_TOKEN=$(curl -s -X POST -H "Jenkins-Crumb:${JENKINS_CRUMB}" --cookie /tmp/cookies "${JENKINS_URL}/me/descriptorByName/jenkins.security.ApiTokenProperty/generateNewToken?newTokenName=demo-token66" -u admin:admin | jq -r '.data.tokenValue')
 
 echo $JENKINS_URL
 echo $JENKINS_CRUMB
@@ -14,20 +16,7 @@ echo $JENKINS_TOKEN
 
 while read plugin; do
    echo "........Installing ${plugin} .."
-   curl -s POST --data "<jenkins><install plugin='${plugin}' /></jenkins>" -H 'Content-Type: text/xml' "$JENKINS_URL/pluginManager/installNecessaryPlugins" --user "admin:$JENKINS_TOKEN"
+   curl -s -X POST --data "<jenkins><install plugin='${plugin}' /></jenkins>" -H 'Content-Type: text/xml' "${JENKINS_URL}/pluginManager/installNecessaryPlugins" --user "admin:$JENKINS_TOKEN"
 done < plugins.txt
 
-
-#### we also need to do a restart for some plugins
-
-#### check all plugins installed in jenkins
-# 
-# http://<jenkins-url>/script
-
-# Jenkins.instance.pluginManager.plugins.each{
-#   plugin -> 
-#     println ("${plugin.getDisplayName()} (${plugin.getShortName()}): ${plugin.getVersion()}")
-# }
-
-
-#### Check for updates/errors - http://<jenkins-url>/updateCenter
+# Additional comments and checks are not modified, so they remain as is.

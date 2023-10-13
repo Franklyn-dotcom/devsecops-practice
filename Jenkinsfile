@@ -6,7 +6,7 @@ pipeline {
      containerName = "devsecops-container"
      serviceName = "devsecops-svc"
      imageName = "franklyn27181/my-devops-project:2.0"
-     applicationURL="http://74.220.26.11:8080"
+     applicationURL="http://74.220.28.164:8080/"
      applicationURI="/increment/99"
      trivyDir = "/devsecops-numeric-app/dockerfiles"
    }
@@ -32,20 +32,15 @@ pipeline {
       }
     }
 
- //    stage('SonarQube - SAST') {
- //      steps {
- //        withSonarQubeEnv('SonarQube') {
- //          sh "mvn sonar:sonar \
-	// 	              -Dsonar.projectKey=numeric-application \
-	// 	              -Dsonar.host.url=http://devsecops-demo.eastus.cloudapp.azure.com:9000"
- //        }
- //        timeout(time: 2, unit: 'MINUTES') {
- //          script {
- //            waitForQualityGate abortPipeline: true
- //          }
- //        }
- //      }
- //    }
+     stage('SonarQube - SAST') {
+      steps {
+	  sh "mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=sonarqube \
+  -Dsonar.projectName='sonarqube' \
+  -Dsonar.host.url=http://74.220.28.164:9000 \
+  -Dsonar.token=sqp_836605f850f48725d7b123d31364c27a72f31329"
+	}
+    }
 
 	stage('Vulnerability Scan - Docker') {
       steps {
@@ -69,9 +64,9 @@ pipeline {
 
     stage('Docker Build and Push') {
       steps {
-        withDockerRegistry([credentialsId: 'dockerhub-credential', url: ""]){
-		    sh "docker build -t franklyn27181/my-devops-projects:2.0 ."
-		    sh 'docker push franklyn27181/my-devops-projects:2.0'
+        withDockerRegistry([credentialsId: 'dockerhub', url: ""]){
+		    sh "docker build -t franklyn27181/my-devops-projects:3.0 ."
+		    sh 'docker push franklyn27181/my-devops-projects:3.0'
 		}  
       }
     }
@@ -146,25 +141,25 @@ pipeline {
  //      }
  //    }
 
-     stage('K8S Deployment - PROD') {
-      steps {
-        parallel(
-          "Deployment": {
-            echo "Replace the kubernetes manifest image with the docker image and applying the file"
-            withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "sed -i 's#replace#franklyn27181/my-devops-projects:2.0#g' k8s_deployment_service.yaml"
-	      sh "kubectl -n default set image deploy ${deploymentName} ${containerName}=${imageName} --record=true"
-              sh "kubectl apply -f k8s_deployment_service.yaml"
-            }
-          },
-           "Rollout Status": {
-             withKubeConfig([credentialsId: 'kubeconfig']) {
-               sh "bash k8s-deployment-rollout-status.sh"
-             }
-           }
-        )
-      }
-    }
+//     stage('K8S Deployment - PROD') {
+//      steps {
+//        parallel(
+//          "Deployment": {
+//            echo "Replace the kubernetes manifest image with the docker image and applying the file"
+//            withKubeConfig([credentialsId: 'kubeconfig']) {
+//              sh "sed -i 's#replace#franklyn27181/my-devops-projects:2.0#g' k8s_deployment_service.yaml"
+//	      sh "kubectl -n default set image deploy ${deploymentName} ${containerName}=${imageName} --record=true"
+//              sh "kubectl apply -f k8s_deployment_service.yaml"
+//            }
+//          },
+//           "Rollout Status": {
+//             withKubeConfig([credentialsId: 'kubeconfig']) {
+//               sh "bash k8s-deployment-rollout-status.sh"
+//             }
+//           }
+//        )
+//      }
+//    }
 
  //    stage('Integration Tests - PROD') {
  //      steps {
