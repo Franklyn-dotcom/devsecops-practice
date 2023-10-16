@@ -6,7 +6,7 @@ JENKINS_URL='http://74.220.28.164:8080'  # Updated Jenkins URL with the provided
 
 # You may need to update the credentials as well.
 # Replace 'admin:admin' with your Jenkins username and password.
-JENKINS_CRUMB=$(curl -s --cookie-jar /tmp/cookies -u oge:oge "${JENKINS_URL}/crumbIssuer/api/json" | jq -r '.crumb')
+JENKINS_CRUMB=$(curl -s --cookie-jar /tmp/cookies -u admin:admin "${JENKINS_URL}/crumbIssuer/api/json" | jq -r '.crumb')
 
 JENKINS_TOKEN=$(curl -s -X POST -H "Jenkins-Crumb:${JENKINS_CRUMB}" --cookie /tmp/cookies "${JENKINS_URL}/me/descriptorByName/jenkins.security.ApiTokenProperty/generateNewToken?newTokenName=demo-token66" -u admin:admin | jq -r '.data.tokenValue')
 
