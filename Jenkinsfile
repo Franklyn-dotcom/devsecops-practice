@@ -35,10 +35,10 @@ pipeline {
      stage('SonarQube - SAST') {
       steps {
 	  sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=sonarqube \
-  -Dsonar.projectName='sonarqube' \
+  -Dsonar.projectKey=sonar \
+  -Dsonar.projectName='sonar' \
   -Dsonar.host.url=http://74.220.28.164:9000 \
-  -Dsonar.token=sqp_836605f850f48725d7b123d31364c27a72f31329"
+  -Dsonar.token=sqp_a9336ef5829f9bdc329c6567cc3d08aab49bb5f9"
 	}
     }
 
